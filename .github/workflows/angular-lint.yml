@@ -5,5 +5,5 @@ jobs:
   Angular-Linting:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./
+      - uses: actions/checkout@v2
       - run: npm run lint
