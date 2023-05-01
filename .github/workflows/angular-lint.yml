@@ -5,4 +5,5 @@ jobs:
   Angular-Linting:
     runs-on: ubuntu-latest
     steps:
+      - uses: ./
       - run: npm run lint
