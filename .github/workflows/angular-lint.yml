@@ -1,9 +1,21 @@
-name: Angular Linting
-run-name: ${{ github.actor }} is linting angular project
+name: Angular linting
+
 on: [push]
+
 jobs:
-  Angular-Linting:
+  test:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - run: npm run lint
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Install node
+      uses: actions/setup-node@v1 #this will install Node and npm on Ubuntu
+      with:
+        node-version: '16.x'
+    - name: Install dependencies
+      run: npm install
+    - name: Install Angular CLI
+      run: npm install -g @angular/cli > /dev/null
+    - name: Run linters and prettier fix
+      run: npm run lint
