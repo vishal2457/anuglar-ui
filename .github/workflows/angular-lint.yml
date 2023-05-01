@@ -1,0 +1,8 @@
+name: Angular Linting
+run-name: ${{ github.actor }} is linting angular project
+on: [push]
+jobs:
+  Angular-Linting:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run lint
