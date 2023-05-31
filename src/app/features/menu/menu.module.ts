@@ -11,6 +11,8 @@ import { FormComponent } from './form/form.component';
 import { DashDataGridModule } from 'src/app/shared/data-grid/data-grid.module';
 import { PageHeaderComponent } from 'src/app/shared/page-header/page-header.component';
 import { InputGroupComponent } from 'src/app/shared/input-group/input-group.component';
+import { GbGridShellComponent } from 'src/app/shared/grid-shell/grid-shell';
+import { GbGridColumnsComponent } from 'src/app/shared/gb-data-grid/components/base-table/columns';
 
 @NgModule({
   declarations: [ListComponent, FormComponent],
@@ -23,7 +25,9 @@ import { InputGroupComponent } from 'src/app/shared/input-group/input-group.comp
     ReactiveFormsModule,
     DashDataGridModule,
     PageHeaderComponent,
-    InputGroupComponent
+    InputGroupComponent,
+    GbGridShellComponent,
+    GbGridColumnsComponent
   ],
 })
 export class MenuModule {}

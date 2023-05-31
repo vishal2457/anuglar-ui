@@ -1,11 +1,51 @@
-<div class="row">
-  <gb-card class="col-md-4" cardTitle="Total Orders">
-    <p class="h1">100</p>
-  </gb-card>
-  <gb-card class="col-md-4" cardTitle="App users">
-    <p class="h1">100</p>
-  </gb-card>
-  <gb-card class="col-md-4" cardTitle="Revenue">
-    <p class="h1">100</p>
-  </gb-card>
+<sgb-button text="Test" [loading]="loading" />
+<sgb-button text="secondary" variant="secondary" (handleClick)="loading=!loading" />
+<sgb-button text="destructive" variant="destructive" />
+<sgb-button text="outline" variant="outline" />
+<sgb-button text="ghost" variant="ghost" />
+<sgb-button text="link" variant="link" />
+
+
+
+
+<br>
+<br>
+<sgb-input-wrapper label="Email" [control]="input" >
+  <input type="text" sgb-input [formControl]="input" />
+</sgb-input-wrapper>
+
+
+<sgb-btn-group-container>
+  <sgb-btn-group text="Edit"  />
+  <sgb-btn-group text="Delete"  />
+  <sgb-btn-group text="Add" />
+</sgb-btn-group-container>
+
+<br>
+<br>
+<div sgb-card>
+  <div sgb-card-header>
+    <h3 sgb-card-title>Title</h3>
+  </div>
+  <div sgb-card-content>
+    This is the content
+  </div>
 </div>
+
+<br>
+<br>
+<sgb-badge text="default" />
+<sgb-badge text="secondary" variant="secondary" />
+<sgb-badge text="destructive" variant="destructive"  />
+<sgb-badge text="outline" variant="outline"  />
+
+<br>
+<br>
+
+<sgb-alert-banner
+header="Sale is live"
+description="You can shop now for 20% off."
+/>
+
+
+<span sgbTooltip="Tooltip" >Tooltip</span>

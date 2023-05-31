@@ -6,7 +6,7 @@ import { GbButtonComponent } from "../button/button.component";
   selector: 'back-button',
   standalone: true,
   imports: [GbButtonComponent],
-  template: `<gb-button (onClick)="goback()" variant="inverse" >{{text}}</gb-button>`
+  template: `<gb-button (handleClick)="goback()" variant="inverse" >{{text}}</gb-button>`
 })
 export class BackButtonComponent {
   constructor(private _location: Location) {}

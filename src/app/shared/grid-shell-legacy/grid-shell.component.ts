@@ -8,14 +8,10 @@ import {
   Output,
 } from '@angular/core';
 import { BehaviorSubject, catchError, tap } from 'rxjs';
-import { ApiService } from 'src/app/services/core/api.service';
-import { SanitizationService } from 'src/app/services/core/sanitization.service';
-import { DataGridService } from '../dash-data-grid/data-grid.service';
-import {
-  actionButtonType,
-  filterEmitterType,
-} from '../dash-data-grid/data-grid.type';
 import { ShellConfig } from './grid-shell.types';
+import { ApiService } from '../services/api.service';
+import { DataGridService } from '../data-grid/data-grid.service';
+import { actionButtonType, filterEmitterType } from '../data-grid/data-grid.type';
 
 @Component({
   selector: 'dash-grid-shell',
@@ -29,55 +25,43 @@ import { ShellConfig } from './grid-shell.types';
     [loading]="loading"
     [actionButtons]="actionButtons"
     (actionButtonClick)="actionButtonClick.emit($event)"
-    (onAddClick)="onAddClick.emit($event)"
-    [bulkActions]="bulkActions"
-    (bulkActionClick)="bulkActionClick.emit($event)"
+    (onAddClick)="handleAddClick.emit($event)"
     [checkbox]="checkbox"
-    [excelURL]="excelURL"
-    [extraExportKeys]="extraExportKeys"
     [handleExport]="handleExport"
     [headerTitle]="headerTitle"
-    [showAdd]="showAdd"
   ></dash-data-grid>`,
 })
 export class GridShellComponent implements OnInit {
   constructor(
     private _api: ApiService,
-    private _sanitizer: SanitizationService,
+    // private _sanitizer: SanitizationService,
     private _cdr: ChangeDetectorRef,
     private _ds: DataGridService
   ) {}
-  @Input() config: ShellConfig = null;
+  @Input() config!: ShellConfig;
   @Input() filterDropdownData: any;
-  @Input() actionButtons: actionButtonType[];
-  @Input() bulkActions: string[];
+  @Input() actionButtons: actionButtonType[] = [];
   @Input() checkbox = true;
-  @Input() excelExport: boolean | string = false;
   @Input() handleExport: any;
-  @Input() headerTitle: string;
-  @Input() showAdd = true
-  @Input() extraExportKeys: {key: string, title: string}[]
-  get excelURL() {
-    if (typeof this.excelExport == 'string') {
-      return this.excelExport;
-    } else if (typeof this.excelExport == 'boolean' && this.excelExport) {
-      return this.config.endpoint;
-    }
-    return '';
-  }
+  @Input() headerTitle = '';
+
   @Output() actionButtonClick = new EventEmitter<any>();
   @Output() bulkActionClick = new EventEmitter();
-  @Output() onAddClick = new EventEmitter<any>();
+  @Output() handleAddClick = new EventEmitter<any>();
 
   get headers() {
     return this.config.headers;
   }
 
   source: any[] = [];
-  filterSubject = new BehaviorSubject<filterEmitterType>(null);
+  filterSubject = new BehaviorSubject<filterEmitterType>({
+    limit: 10,
+    page:1,
+    firstChange: false
+  });
   filterChange$ = this.filterSubject.asObservable();
   loading = false;
-  totalCount: number = null;
+  totalCount!: number;
 
   private debounce:any
 
@@ -96,9 +80,9 @@ export class GridShellComponent implements OnInit {
     this.loading = true;
     this._cdr.detectChanges();
     const q = {
-      filters: this._sanitizer.sanitizeFilterObject(qp.filters),
+      filters:qp.filters,
       limit: qp.limit,
-      sort: this._sanitizer.sanitizeFilterObject(qp.sort),
+      sort:JSON.stringify(qp.sort),
       page: qp.page,
     };
 
@@ -113,14 +97,14 @@ export class GridShellComponent implements OnInit {
           return err;
         })
       )
-      .subscribe((data) => {
+      .subscribe((data:any) => {
         this.totalCount = data.data.count;
         this.source = data.data.rows;
         this._cdr.detectChanges();
       });
   }
 
-  handleChange(e) {
+  handleChange(e:any) {
     if (!e) return;
     if (this.debounce) {
       clearTimeout(this.debounce);
@@ -132,8 +116,8 @@ export class GridShellComponent implements OnInit {
     }
 
   this.debounce =  setTimeout(() => {
-      const { latestChange, ...rest } = e;
-      this.filterSubject.next(rest);
+
+      this.filterSubject.next(e);
     }, delay);
 
 

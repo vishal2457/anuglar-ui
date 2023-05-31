@@ -8,7 +8,6 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
   [title]="title"
   (click)="handleClick.emit($event)"
 >
-  <lucide-icon [name]="icon"></lucide-icon>
 </button>`
 })
 

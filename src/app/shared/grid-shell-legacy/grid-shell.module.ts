@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { GridShellComponent } from './grid-shell.component';
-import { DashDataGridModule } from '../dash-data-grid/data-grid.module';
 import { CommonModule } from '@angular/common';
+import { DashDataGridModule } from '../data-grid/data-grid.module';
 
 @NgModule({
   imports: [DashDataGridModule, CommonModule],

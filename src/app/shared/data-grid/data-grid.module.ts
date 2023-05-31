@@ -17,14 +17,12 @@ import { ActionButtonComponent } from './components/action.component';
 import { GridToolbarComponent } from './components/toolbar.component';
 import { DataGridService } from './data-grid.service';
 import { IfDataComponent } from './components/subs/if-data.component';
-import { LucideAngularModule, Filter, FilterX, XSquare, Plus } from 'lucide-angular';
 import { ButtonIconComponent } from './components/subs/btn-icon.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    LucideAngularModule.pick({Filter, FilterX, XSquare, Plus})
   ],
   providers: [DataGridService],
   declarations: [
